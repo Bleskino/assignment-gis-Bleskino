@@ -20,8 +20,7 @@ Build a map-based application, which lets the user see geo-based data on a map a
 
 Fork this repository and fill in (either in English, or in Slovak):
 
-**Application description**: Aplikacia bude ponukat polohu znamych potravin ako TESCO, BILLA, KAUFLAND a bude ukazovat ako daleko je od nich uzivatel a ponukne vyznacenie trasy k danemu obchodu popr. spusti navigaciu
-Bude obsahovat urcenie polohy podla GPS a nasledne najde najblizsi obchod akykolvek z dopredu definovaneho zoznamu.
+**Application description**: Aplikacia bude ukazovat najblizsie obchody s potravinami, v ktorych blizkosti (max 300m) metrov je bankomat na vyber penazi.
 
 
 **Data source**: [Open Street Maps]
