@@ -1,0 +1,196 @@
+﻿@{
+    ViewBag.Title = "Shops and ATMs";
+}
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    #container {
+        position: fixed;
+        float: right;
+        right: 0;
+        left: 0;
+        border-width: 0 0 1px;
+        height: 100%;
+    }
+
+    #sideMenu {
+        display: block;
+        position: relative;
+        float: right;
+        top: 0;
+        bottom: 0;
+        height: 100%;
+        width: 12%;
+        background-color: #486084;
+    }
+
+        #sideMenu ul {
+            list-style-type: none;
+            margin: 5%;
+            padding: 0;
+        }
+
+            #sideMenu ul li a {
+                text-decoration: none;
+                color: white;
+                padding: 10.5px 11px;
+                display: block;
+            }
+
+                #sideMenu ul li a:hover {
+                    color: white;
+                    background-color: #5FD367;
+                }
+
+    #map {
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 88%;
+    }
+</style>
+
+<div id="container">
+    <div id="sideMenu">
+        <ul>
+            <li><a href="#" onclick="getAllShops()">OBCHODY</a></li>
+            <li><a href="#" onclick="getAllTesco()"><i>Tesco</i></a></li>
+            <li><a href="#" onclick="getAllTerno()"><i>Terno</i></a></li>
+            <li><a href="#" onclick="getAllBilla()"><i>Billa</i></a></li>
+            <li><a href="#" onclick="getAllAtm()">BANKOMATY</a></li>
+            <li><a href="#" onclick="getAllVub()"><i>Vúb</i></a></li>
+            <li><a href="#" onclick="getAllTatra()"><i>Tatra banka</i></a></li>
+            <li><a href="#" onclick="getAllSpor()"><i>Slovenská sporiteľňa</i></a></li>
+
+
+            <li>
+            <br /><br />
+                
+                    @*@using (Html.BeginForm("GetAtmSupermarketInRadius", "Home", FormMethod.Post))
+                    {
+                        @: <center> Zadaj max. vzdialenosť medzi bankomatom a obchodom:</center>
+                         @Html.TextBox("radius", null, new { @type = "number", @style = "width:150px", @placeholder = "Rádius vzdialenosti v km" })
+                        <input type="submit" value="Zobraz">
+                    }*@
+                <input type="number" style="width:150px" placeholder="Zadaj vzdialenost" name="findMatch" id="findMatch" />
+                <input type="button" style="width:150px"  value="Zobraz" onclick="getMatchInRadius()" />
+            </li>
+                
+            
+        </ul>
+    </div>
+    <div id="map"></div>
+</div>
+
+<script>
+   //var geojsonFeature = {
+   //    "type": "Feature",
+   //    "properties": {
+   //        "name": "Coors Field",
+   //        "amenity": "Baseball Stadium",
+   //        "popupContent": "This is where the Rockies play!",
+   //        'marker-symbol': 'cafe',
+   //        'marker-color' : '#BE9A6B '
+   //    },
+   //    "geometry": {
+   //        "type": "Point",
+   //        "coordinates": [17.2159171, 48.1357803]
+   //    }
+   //};
+
+
+   L.mapbox.accessToken = 'pk.eyJ1Ijoia3lzbG8iLCJhIjoiY2lnYjU4NTU0MDZ2Z3Z4bTdycmF3bnVneCJ9.8RY_Srj6qseV30wyhQFwRw';
+   var map = L.mapbox.map('map', 'kyslo.77e674e0').setView([48.1357803, 17.1159171], 13);
+   //L.geoJson(geojsonFeature).addTo(map);
+
+   var myLayer = L.mapbox.featureLayer().addTo(map);
+   var myLink2Layer = L.mapbox.featureLayer().addTo(map);
+
+   var radius = document.getElementById('findMatch');
+
+   //   map.on('click', function () {
+   //   alert('Klikol si na mapu');
+   //   myLayer.setGeoJSON();
+   //});
+
+
+   function getContactsJson() {
+       $.ajax({
+           url: '@Url.Action("About", "Home")',
+           dataType: "json",
+           type: "GET",
+           contentType: 'application/json; charset=utf-8',
+           async: true,
+           processData: true,
+           cache: false,
+           success: function(data) {
+               //alert(data);
+               //myLayer.setGeoJSON(data);
+               myLink2Layer.setGeoJSON(geojsonFeature);
+           },
+           error: function(er) {
+               alert('error');
+           }
+       });
+   }
+
+   function getAboutAuto() {
+       myLayer.loadURL('@Url.Action("About", "Home")');
+   }
+
+    function getAllAtm() {
+        myLayer.loadURL('@Url.Action("GetAtmAll", "Home")');
+    }
+
+    function getAllVub() {
+        myLayer.loadURL('@Url.Action("GetVubAll", "Home")');
+    }
+
+    function getAllTatra() {
+        myLayer.loadURL('@Url.Action("GetTatraAll", "Home")');
+    }
+
+    function getAllSpor() {
+        myLayer.loadURL('@Url.Action("GetSporAll", "Home")');
+    }
+
+    function getAllShops() {
+        myLayer.loadURL('@Url.Action("GetShopsAll", "Home")');
+    }
+
+    function getAllTesco() {
+        myLayer.loadURL('@Url.Action("GetTescoAll", "Home")');
+    }
+
+    function getAllTerno() {
+        myLayer.loadURL('@Url.Action("GetTernoAll", "Home")');
+    }
+
+    function getAllBilla() {
+        myLayer.loadURL('@Url.Action("GetBillaAll", "Home")');
+    }
+
+    function getMatchInRadius() {
+        $.ajax({
+            url: '/Web/Home/GetAtmSupermarketInRadius?radius='+radius.value,
+            dataType: "json",
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            async: true,
+            processData: true,
+            cache: false,
+            success: function (data) {
+                myLayer.setGeoJSON(data);
+            },
+            error: function (er) {
+                alert('error');
+            }
+        });
+    }
+</script>
+
