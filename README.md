@@ -20,9 +20,8 @@ Build a map-based application, which lets the user see geo-based data on a map a
 
 Fork this repository and fill in (either in English, or in Slovak):
 
-**Application description**: Aplikacia bude ukazovat najblizsie obchody s potravinami, v ktorych blizkosti (max 300m) metrov je bankomat na vyber penazi.
-
+**Application description**: Aplikácia bude ukazova obchody s potravinami všeobecne, ale aj pod¾a najznámejších znaèiek ako Billa, Tesco a podobne. Rovnako bude zobrazova všetky bankomaty a ich rozdelenie pod¾a najznámejších znaèiek. Používate¾ má možnos urèi maximálnu vzdialenos a zobrazia sa mu dvojice obchod a bankomat, ktoré sú od seba vzdialené menej alebo rovnako ako zadaná hodnota. Bankomaty sú od obchodov odlíšené farebne.
 
 **Data source**: [Open Street Maps]
 
-**Technologies used**: background map --> [mapbox], [PostGIS], Android platforma
+**Technologies used**: background map --> [mapbox], [PostGIS], Web platforma (ASP.NET)
