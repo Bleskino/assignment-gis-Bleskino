@@ -24,4 +24,4 @@ Fork this repository and fill in (either in English, or in Slovak):
 
 **Data source**: [Open Street Maps]
 
-**Technologies used**: background map --> [mapbox], [PostGIS], Web platforma (ASP.NET)
+**Technologies used**: background map --> [mapbox], [PostGIS], Web platforma C# (ASP.NET)
